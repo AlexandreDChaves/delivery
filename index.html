@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Gerenciamento de Pedidos</h1>
+
+    
+    <form id="pedidoForm">
+        <label for="cliente">Cliente:</label>
+        <input type="text" id="cliente" required>
+
+        <label for="sabor_pizza">Sabor da Pizza:</label>
+        <input type="text" id="sabor_pizza" required>
+
+        <label for="tamanho">Tamanho:</label>
+        <select id="tamanho" required>
+            <option value="Pequena">Pequena</option>
+            <option value="Média">Média</option>
+            <option value="Grande">Grande</option>
+        </select>
+
+        <button type="submit">Criar Pedido</button>
+    </form>
+
+    
+    <h2>Pedidos</h2>
+    <table id="pedidosTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Sabor</th>
+                <th>Tamanho</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Os dados serão inseridos aqui dinamicamente -->
+        </tbody>
+    </table>
+
+    <script src="app.js"></script>
+</body>
+</html>
