@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Servir arquivos estáticos (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname)));
 
-// Configuração do banco de dados
+
 const dbConfig = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -23,7 +23,7 @@ const dbConfig = {
     database: process.env.DB_NAME,
 };
 
-// Função para conectar ao banco de dados
+
 async function connectToDatabase() {
     try {
         const connection = await mysql.createConnection(dbConfig);
@@ -35,7 +35,7 @@ async function connectToDatabase() {
     }
 }
 
-// Inicia a conexão com o banco de dados
+
 const db = connectToDatabase();
 
 // Rota para listar todos os pedidos
@@ -59,11 +59,14 @@ app.post('/pedidos', async (req, res) => {
     }
 
     try {
+
+        const numero_pedido = `PED${Date.now()}`;
+
         const [result] = await (await db).query(
-            'INSERT INTO pedidos (cliente, sabor_pizza, tamanho) VALUES (?, ?, ?)',
-            [cliente, sabor_pizza, tamanho]
+            'INSERT INTO pedidos (numero_pedido, cliente, sabor_pizza, tamanho) VALUES (?, ?, ?, ?)',
+            [numero_pedido, cliente, sabor_pizza, tamanho]
         );
-        res.status(201).json({ message: 'Pedido criado com sucesso', id: result.insertId });
+        res.status(201).json({ message: 'Pedido criado com sucesso', id: result.insertId, numero_pedido:numero_pedido });
     } catch (err) {
         console.error('Erro ao criar pedido:', err);
         res.status(500).json({ message: 'Erro ao criar pedido' });

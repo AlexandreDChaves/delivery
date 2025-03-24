@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             pedidos.forEach(pedido => {
                 const row = `
                     <tr>
+                        <td>${pedido.numero_pedido}</td>
                         <td>${pedido.id}</td>
                         <td>${pedido.cliente}</td>
                         <td>${pedido.sabor_pizza}</td>
@@ -42,10 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('/pedidos', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ cliente, sabor_pizza, tamanho })
+                body: JSON.stringify({cliente, sabor_pizza, tamanho })
             });
 
             if (!response.ok) throw new Error('Erro ao criar pedido');
+
+            const data = await response.json();
+
+            alert(`Pedido criado com sucesso!\nNúmero do Pedido: ${data.numero_pedido}`);
 
             loadPedidos(); // Recarrega a lista de pedidos após criar um novo
             form.reset(); // Limpa o formulário
